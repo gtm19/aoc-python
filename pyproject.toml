@@ -1,0 +1,16 @@
+[project]
+name = "aoc-python"
+version = "0.1.0"
+description = "Add your description here"
+readme = "README.md"
+requires-python = ">=3.14"
+dependencies = []
+
+[dependency-groups]
+dev = [
+    "jinja2>=3.1.6",
+    "pytest>=9.0.1",
+]
+
+[tool.pytest.ini_options]
+pythonpath = "."

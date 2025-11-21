@@ -1,0 +1,13 @@
+"""
+Tests for day {{ day_number | int }} of Advent of Code {{ year | int }}.
+"""
+
+from solutions.year{{ year | int }}.day_{{ "%02d" | format(day_number) }}.solution import part_one, part_two, read_input
+
+input_data = read_input("tests/year{{ year | int }}/day_{{ "%02d" | format(day_number) }}/test_input.txt")
+
+def test_part_one():
+    assert part_one(input_data) == 9999
+
+def test_part_two():
+    assert part_two(input_data) == 9999
