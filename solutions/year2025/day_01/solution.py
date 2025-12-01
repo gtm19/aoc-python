@@ -5,7 +5,6 @@ See https://adventofcode.com/2025/day/1 for details.
 """
 
 from collections import defaultdict
-from typing import Any
 
 
 def read_input(file_path: str) -> list[str]:
