@@ -30,7 +30,7 @@ def get_joltage(bank: str, n: int = 2) -> int:
 
 def part_one(data: list[str]) -> int:
     """Solve part one of the day's challenge."""
-    return sum(get_joltage(bank) for bank in data)
+    return sum(get_joltage(bank, n=2) for bank in data)
 
 
 def part_two(data: list[str]) -> int:
