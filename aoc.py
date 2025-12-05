@@ -21,7 +21,7 @@ def setup(year: int | None = None, day_number: int | None = None) -> None:
 
     day_test_dir = TESTS_DIR / f"year{year}" / f"day_{day_number:02}"
     day_test_dir.mkdir(parents=True, exist_ok=True)
-    day_test_file = day_test_dir / "test_solution.py"
+    day_test_file = day_test_dir / f"test_solution_{day_number:02}.py"
     input_test_file = day_test_dir / "test_input.txt"
 
     # Set up Jinja2 environment
