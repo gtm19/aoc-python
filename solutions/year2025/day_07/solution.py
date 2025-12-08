@@ -4,6 +4,8 @@ Advent of Code solution for day 7.
 See https://adventofcode.com/2025/day/7 for details.
 """
 
+from collections import defaultdict
+
 
 def read_input(file_path: str) -> list[str]:
     """Read the input file and return a list of lines."""
@@ -11,37 +13,39 @@ def read_input(file_path: str) -> list[str]:
         return f.read().splitlines()
 
 
-def make_grid(data: list[str]) -> dict[complex, str]:
-    return {complex(x, y): c for x, row in enumerate(data) for y, c in enumerate(row)}
+def process_beams(data: list[str]) -> tuple[int, int]:
+    beams: defaultdict[int, int] = defaultdict(int)
+    splits: int = 0
+
+    for row in data:
+        for i, c in enumerate(row):
+            if c == "S":
+                beams[i] = 1
+            if c == "^":
+                if i not in beams:
+                    continue
+                beams[i - 1] += beams[i]
+                beams[i + 1] += beams[i]
+                del beams[i]
+                splits += 1
+
+    return splits, sum(beams.values())
 
 
 def part_one(data: list[str]) -> int:
     """Solve part one of the day's challenge."""
-    grid = make_grid(data)
-    beams = set(k for k, v in grid.items() if v == "S")
-    splits = 0
-    for i in range(1, len(data)):
-        for beam in list(beams):
-            beams.remove(beam)
-            new_beam = beam + 1
-            if grid.get(new_beam) == "^":
-                beams.update((new_beam + 1j, new_beam - 1j))
-                splits += 1
-            else:
-                beams.add(new_beam)
+    splits, _ = process_beams(data)
     return splits
 
 
 def part_two(data: list[str]) -> int:
     """Solve part two of the day's challenge."""
-    return -9999
+    _, n_beams = process_beams(data)
+    return n_beams
 
 
 if __name__ == "__main__":
     input_data = read_input("solutions/year2025/day_07/input.txt")
-    # input_data = read_input("tests/year2025/day_07/test_input.txt")
-
-    print(input_data)
 
     print("Part 1:", part_one(input_data))
     print("Part 2:", part_two(input_data))
