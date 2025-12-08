@@ -1,3 +1,5 @@
+#!/usr/bin/env uv run
+
 from datetime import datetime
 from pathlib import Path
 
