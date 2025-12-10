@@ -12,4 +12,4 @@ def test_part_one():
 
 
 def test_part_two():
-    assert part_two(input_data) == 9999
+    assert part_two(input_data) == 24
