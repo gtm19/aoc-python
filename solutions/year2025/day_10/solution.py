@@ -4,6 +4,7 @@ Advent of Code solution for day 10.
 See https://adventofcode.com/2025/day/10 for details.
 """
 
+from collections import defaultdict
 from itertools import combinations_with_replacement
 
 
@@ -60,12 +61,34 @@ def part_one(data: list[str]) -> int:
 
 def part_two(data: list[str]) -> int:
     """Solve part two of the day's challenge."""
-    return -9999
+    machines = process_lines(data)
+    total: int = 0
+
+    # for each machine
+    for m_i, (light, wiring, joltage) in enumerate(machines):
+        n = min(joltage)
+        while True:
+            wiring_combos = combinations_with_replacement(wiring, n)
+            for combo in wiring_combos:
+                start = defaultdict(int)
+                for press in combo:
+                    for i in press:
+                        start[i] += 1
+                if tuple(v for k, v in sorted(start.items())) == joltage:
+                    break
+            else:
+                n += 1
+                continue
+            print(f"Machine {m_i + 1} requires {n} presses for joltage {joltage}")
+            total += n
+            break
+
+    return total
 
 
 if __name__ == "__main__":
     input_data = read_input("solutions/year2025/day_10/input.txt")
-    # input_data = read_input("tests/year2025/day_10/test_input.txt")
+    input_data = read_input("tests/year2025/day_10/test_input.txt")
 
     print("Part 1:", part_one(input_data))
     print("Part 2:", part_two(input_data))
